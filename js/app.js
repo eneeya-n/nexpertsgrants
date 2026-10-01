@@ -1,9 +1,9 @@
 (function () {
   var INTAKES = [
-    { id: "nov-weekday", range: "23/11 – 27/11", days: "Mon–Fri", pdfDate: "23.11.2026 – 27.11.2026" },
-    { id: "nov-weekend", range: "28/11 – 12/12", days: "Weekends", pdfDate: "28.11.2026 – 12.12.2026" },
-    { id: "dec-weekday", range: "7/12 – 11/12", days: "Mon–Fri", pdfDate: "07.12.2026 – 11.12.2026" },
-    { id: "dec-weekend", range: "5/12 – 19/12", days: "Weekend", pdfDate: "05.12.2026 – 19.12.2026" },
+    { id: "nov-weekday", label: "23.11.2026 - 27.11.2026 (week day)", pdfDate: "23.11.2026 - 27.11.2026 (week day)" },
+    { id: "nov-weekend", label: "28.11.2026 - 12.12.2026 (week end)", pdfDate: "28.11.2026 - 12.12.2026 (week end)" },
+    { id: "dec-weekday", label: "07.12.2026 - 11.12.2026 (week day)", pdfDate: "07.12.2026 - 11.12.2026 (week day)" },
+    { id: "dec-weekend", label: "05.12.2026 - 19.12.2026 (week end)", pdfDate: "05.12.2026 - 19.12.2026 (week end)" },
   ];
 
   var scheduleBody = document.getElementById("schedule-body");
@@ -53,8 +53,7 @@
         "<tr data-intake=\"" + item.id + "\" tabindex=\"0\">" +
           "<td>CEH</td>" +
           "<td>EC-Council Certified Ethical Hacker</td>" +
-          "<td>" + item.range + "</td>" +
-          "<td>" + item.days + "</td>" +
+          "<td>" + item.label + "</td>" +
           "<td>9.00AM – 5.00PM</td>" +
         "</tr>"
       );
@@ -63,7 +62,7 @@
 
   function renderIntakes() {
     intakeFields.innerHTML = '<option value="">Choose an option</option>' + INTAKES.map(function (item) {
-      return '<option value="' + item.id + '">' + item.range + " | " + item.days + "</option>";
+      return '<option value="' + item.id + '">' + item.label + "</option>";
     }).join("");
   }
 
@@ -189,7 +188,7 @@
       document.body.classList.add("letter-ready");
       setFlow(3);
       successBox.hidden = false;
-      document.getElementById("success-intake").textContent = intake.range + " | " + intake.days;
+      document.getElementById("success-intake").textContent = intake.label;
       submitBtn.textContent = "Download offer letter";
       successBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }).catch(function () {

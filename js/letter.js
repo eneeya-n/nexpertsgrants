@@ -32,6 +32,10 @@
     page.drawRectangle({ x: x, y: y, width: w, height: h, color: rgb(1, 1, 1), borderWidth: 0 });
   }
 
+  function writeLine(page, font, rgb, text, x, y) {
+    page.drawText(pdfText(text), { x: x, y: y, size: 11, font: font, color: rgb(0, 0, 0) });
+  }
+
   function fitText(page, font, rgb, text, x, y, maxWidth) {
     var size = 11;
     var value = pdfText(text);
@@ -78,23 +82,23 @@
     cover(offer, rgb, 100, 610, 90, 12);
     cover(offer, rgb, 136, 562.1, 398, 11);
     cover(offer, rgb, 136, 549.0, 398, 10.4);
-    cover(offer, rgb, 136, 535.7, 398, 10.5);
-    cover(offer, rgb, 210, 303.2, 320, 10.2);
+    cover(offer, rgb, 136, 521, 398, 25);
+    cover(offer, rgb, 210, 303.2, 325, 10.2);
     fitText(offer, font, rgb, letterDate, 101.5, 615, 110);
     fitText(offer, font, rgb, name, 135.9, 563.5, 400);
     fitText(offer, font, rgb, nric, 135.9, 550.3, 200);
-    fitText(offer, font, rgb, address, 135.9, 537.1, 410);
-    fitText(offer, font, rgb, trainingDate, 207.9, 304.4, 210);
+    drawWrapped(offer, font, rgb, address, 135.9, 537.1, 395, 12.6);
+    writeLine(offer, font, rgb, trainingDate, 207.9, 304.4);
 
     cover(acceptance, rgb, 100, 610, 100, 12);
     cover(acceptance, rgb, 136, 562.3, 398, 10.8);
     cover(acceptance, rgb, 136, 549.1, 398, 10.4);
-    cover(acceptance, rgb, 136, 535.8, 398, 10.5);
+    cover(acceptance, rgb, 136, 521, 398, 25);
     cover(acceptance, rgb, 68, 308, 490, 152);
     fitText(acceptance, font, rgb, ": " + letterDate, 95.3, 615.1, 130);
     fitText(acceptance, font, rgb, name, 135.9, 563.6, 400);
     fitText(acceptance, font, rgb, nric, 135.9, 550.4, 200);
-    fitText(acceptance, font, rgb, address, 135.9, 537.1, 410);
+    drawWrapped(acceptance, font, rgb, address, 135.9, 537.1, 395, 12.6);
 
     var cursor = drawWrapped(
       acceptance,
