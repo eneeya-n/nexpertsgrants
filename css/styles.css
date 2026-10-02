@@ -152,7 +152,7 @@ h1 { font-size: clamp(2.5rem, 5vw, 4.4rem); line-height: 1.02; color: var(--navy
 .hero-card li { margin: 6px 0; }
 
 section { padding: 28px 0; }
-#letter, #apply, #about, #steps, #schedule, #contact { scroll-margin-top: 96px; }
+#letter, #outline, #apply, #about, #steps, #schedule, #contact { scroll-margin-top: 96px; }
 h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 8px; }
 .section-copy { color: var(--muted); max-width: 46rem; margin-top: 0; }
 
@@ -294,6 +294,7 @@ body.ceh-selected #download-btn {
 }
 .fee-list, .plain-list { margin: 8px 0 0; padding-left: 18px; }
 .fee-list li, .plain-list li { margin: 4px 0; }
+.deliverable-note { display: block; margin-top: 4px; color: var(--muted); font-size: 0.92rem; line-height: 1.45; }
 .course-brief { margin-top: 8px; margin-bottom: 18px; }
 .course-brief h3 { margin-bottom: 8px; }
 .brochure-link {
@@ -311,6 +312,25 @@ body.ceh-selected #download-btn {
   text-align: center;
 }
 .brochure-link:hover { background: var(--navy-2); color: white; }
+.outline-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+.phase-label {
+  margin: 0 0 6px;
+  color: var(--copper);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.outline-grid h3 { margin-bottom: 0; }
+.outline-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 14px; }
+.outline-list li { display: grid; gap: 4px; min-width: 0; }
+.outline-list strong { font-weight: 600; }
+.outline-list span { color: var(--muted); line-height: 1.45; }
 
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 18px; background: white; }
 table { width: 100%; border-collapse: collapse; min-width: 720px; }
@@ -490,7 +510,7 @@ body.ceh-selected #download-btn.is-loading {
 @media (max-width: 640px) {
   .whatsapp-float span { display: none; }
   .whatsapp-float { right: 12px; bottom: 12px; padding: 10px; }
-  #letter, #apply, #about, #steps, #schedule, #contact { scroll-margin-top: 12px; }
+  #letter, #outline, #apply, #about, #steps, #schedule, #contact { scroll-margin-top: 12px; }
 }
 .site-footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.92rem; }
 
@@ -575,7 +595,7 @@ body.ceh-selected #download-btn.is-loading {
   .nav {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 6px;
     padding-bottom: 0;
     justify-content: stretch;
@@ -596,7 +616,7 @@ body.ceh-selected #download-btn.is-loading {
     font-size: 0.95rem;
   }
   .nav-cta .arrow-mark { display: none; }
-  .hero-grid, .about-grid, .apply-grid, .course-layout, .steps, .contact-grid, .form-grid {
+  .hero-grid, .about-grid, .apply-grid, .course-layout, .outline-grid, .steps, .contact-grid, .form-grid {
     grid-template-columns: 1fr;
   }
   .hero { padding: 28px 0 8px; }
@@ -634,5 +654,5 @@ body.ceh-selected #download-btn.is-loading {
     flex: 0 0 auto;
   }
   body { padding-bottom: 84px; }
-  #letter, #apply, #about, #steps, #schedule, #contact { scroll-margin-top: 12px; }
+  #letter, #outline, #apply, #about, #steps, #schedule, #contact { scroll-margin-top: 12px; }
 }
