@@ -1,0 +1,19 @@
+{
+  "purpose": "Forward an address on the existing Cloudflare domain to the deployed Pages site. Do not change nameservers, and do not attach the domain as a custom domain until the nameservers are on Cloudflare.",
+  "zone": "Replace with the domain already in your Cloudflare account, for example nexpertsacademy.com",
+  "dnsRecordToAdd": {
+    "type": "A",
+    "name": "grants",
+    "content": "192.0.2.1",
+    "proxied": true,
+    "comment": "Dummy proxied record so grants.yourdomain.com reaches Cloudflare. Redirect visitors before they touch this address. Leave the existing website records unchanged."
+  },
+  "redirectRule": {
+    "name": "Nexperts grants to Cloudflare Worker",
+    "match": "Hostname equals grants.YOURDOMAIN",
+    "then": "Static redirect",
+    "statusCode": 302,
+    "target": "https://nexperts-grants.pages.dev/",
+    "preserveQueryString": true
+  }
+}

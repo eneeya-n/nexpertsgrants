@@ -1,0 +1,12 @@
+.git
+.wrangler
+node_modules
+worker
+functions
+apps-script
+cloudflare
+wrangler.jsonc
+.gitignore
+.assetsignore
+.dev.vars
+.dev.vars.example

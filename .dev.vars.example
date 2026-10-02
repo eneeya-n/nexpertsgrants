@@ -1,0 +1,7 @@
+APPS_SCRIPT_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
+APPS_SCRIPT_TOKEN=paste-the-same-long-random-string-used-in-apps-script
+BREVO_API_KEY=paste-the-brevo-api-key
+BREVO_SENDER_EMAIL=info@nexpertsai.com
+BREVO_SENDER_NAME=Nexperts Academy
+SESSION_SECRET=
+MARKETER_PASSWORDS=

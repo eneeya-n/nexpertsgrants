@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Marketer sign in | Nexperts Grants</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/marketers.css" />
+</head>
+<body class="marketer-page">
+  <main class="wrap marketer-shell">
+    <header class="marketer-brand">
+      <img src="/assets/nexperts-logo.png" alt="Nexperts Academy" />
+      <div>
+        <p class="eyebrow">Nexperts Grants</p>
+        <h1 id="marketer-title">Marketer sign in</h1>
+      </div>
+    </header>
+
+    <section id="login-panel" class="panel marketer-card">
+      <p>Sign in with your code or email and your password. You will only see people who registered with your link.</p>
+      <form id="login-form">
+        <label>
+          <span>Code or email</span>
+          <input id="code" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required maxlength="160" />
+        </label>
+        <label>
+          <span>Password</span>
+          <div class="password-box">
+            <input id="password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128" />
+            <button id="toggle-password" class="password-toggle" type="button" aria-label="Show password">Show</button>
+          </div>
+        </label>
+        <p id="login-error" class="form-msg error" hidden></p>
+        <button id="login-btn" type="submit">Sign in</button>
+      </form>
+      <p class="switch-line">New marketer? <a id="show-create" href="#create">Create an account</a></p>
+    </section>
+
+    <section id="create-panel" class="panel marketer-card" hidden>
+      <p>Create your account with your name, email, and a password. Your dashboard will give you a registration link to share.</p>
+      <form id="signup-form">
+        <label>
+          <span>Name</span>
+          <input id="signup-name" name="name" type="text" autocomplete="name" required maxlength="60" />
+        </label>
+        <label>
+          <span>Email</span>
+          <input id="signup-email" name="email" type="email" autocomplete="email" required maxlength="160" />
+        </label>
+        <label>
+          <span>Password</span>
+          <div class="password-box">
+            <input id="signup-password" name="new-password" type="password" autocomplete="new-password" required minlength="8" maxlength="128" />
+            <button class="password-toggle" type="button" data-toggle="signup-password" aria-label="Show password">Show</button>
+          </div>
+        </label>
+        <label>
+          <span>Confirm password</span>
+          <div class="password-box">
+            <input id="signup-confirm" name="confirm-password" type="password" autocomplete="new-password" required minlength="8" maxlength="128" />
+            <button class="password-toggle" type="button" data-toggle="signup-confirm" aria-label="Show password">Show</button>
+          </div>
+        </label>
+        <label class="hp" aria-hidden="true">Company fax<input id="signup-fax" type="text" tabindex="-1" autocomplete="off" /></label>
+        <p id="signup-error" class="form-msg error" hidden></p>
+        <button id="signup-btn" type="submit">Create account</button>
+      </form>
+      <p class="switch-line">Already have an account? <a id="show-login" href="#signin">Sign in</a></p>
+    </section>
+
+    <section id="dashboard" class="marketer-card" hidden>
+      <div class="dash-head">
+        <div>
+          <p class="eyebrow">Your registrations</p>
+          <h2 id="dash-name"></h2>
+          <p id="dash-count" class="section-copy"></p>
+        </div>
+        <button id="logout-btn" type="button">Sign out</button>
+      </div>
+      <p class="privacy-note">Keep this page private. It shows names and contact details of people who used your link. Full identity numbers and home addresses stay in the academy record.</p>
+      <div class="share-box">
+        <p class="eyebrow">Your registration link</p>
+        <p>Share this link. People who open it and apply are listed below.</p>
+        <div class="share-row">
+          <input id="share-link" type="text" readonly />
+          <button id="copy-link" type="button">Copy link</button>
+        </div>
+        <p id="copy-note" class="copy-note" hidden>Copied.</p>
+      </div>
+      <p id="dash-error" class="form-msg error" hidden></p>
+      <div id="dash-list"></div>
+    </section>
+  </main>
+  <script src="/js/marketer.js"></script>
+</body>
+</html>

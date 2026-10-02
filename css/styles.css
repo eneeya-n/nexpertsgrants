@@ -47,6 +47,7 @@ a { color: var(--teal); }
   background: rgba(244, 240, 232, 0.92);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
+  padding-bottom: 22px;
 }
 .header-inner {
   display: flex;
@@ -67,16 +68,16 @@ a { color: var(--teal); }
 .nav { display: flex; gap: 18px; align-items: center; }
 .nav a { color: var(--navy); text-decoration: none; font-size: 0.95rem; font-weight: 500; }
 .nav a:hover { color: var(--copper); }
-.nav-course {
+.nav-cta {
   position: relative;
-  color: var(--copper) !important;
-  background: #fff1e4;
+  background: var(--navy) !important;
+  color: white !important;
+  padding: 10px 14px;
   border-radius: 999px;
-  padding: 8px 14px;
   box-shadow: 0 0 0 3px rgba(140, 74, 31, 0.2);
   animation: course-glow 1.6s ease-in-out infinite;
 }
-.nav-course .arrow-mark {
+.nav-cta .arrow-mark {
   position: absolute;
   left: 50%;
   bottom: -28px;
@@ -93,12 +94,6 @@ a { color: var(--teal); }
   0%, 100% { box-shadow: 0 0 0 3px rgba(140, 74, 31, 0.18); }
   50% { box-shadow: 0 0 0 7px rgba(140, 74, 31, 0.12); }
 }
-.nav-cta {
-  background: var(--navy) !important;
-  color: white !important;
-  padding: 10px 14px;
-  border-radius: 999px;
-}
 
 .notice {
   background: var(--navy);
@@ -114,6 +109,19 @@ a { color: var(--teal); }
   border-radius: 999px;
 }
 .notice p { margin: 0; font-size: 0.95rem; }
+.offer-prompt {
+  background: #fff8ef;
+  border-bottom: 1px solid var(--line);
+  color: var(--navy);
+}
+.offer-prompt .wrap { padding: 14px 0; }
+.offer-prompt p { margin: 0; font-size: 1rem; }
+.offer-prompt a {
+  color: var(--copper);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
 .hero { padding: 64px 0 24px; }
 .hero-grid {
@@ -144,7 +152,7 @@ h1 { font-size: clamp(2.5rem, 5vw, 4.4rem); line-height: 1.02; color: var(--navy
 .hero-card li { margin: 6px 0; }
 
 section { padding: 28px 0; }
-#course, #apply { scroll-margin-top: 90px; }
+#letter, #apply, #about, #steps, #schedule, #contact { scroll-margin-top: 96px; }
 h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 8px; }
 .section-copy { color: var(--muted); max-width: 46rem; margin-top: 0; }
 
@@ -164,7 +172,7 @@ h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 8px; }
 }
 .step {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 14px;
   padding: 18px;
   position: relative;
@@ -180,8 +188,8 @@ h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 8px; }
   font-family: var(--serif);
   font-size: 1.2rem;
 }
-.step h3 { font-size: 1.15rem; margin-bottom: 4px; }
-.step p { margin: 0; color: var(--muted); }
+.step h3 { font-size: 1.15rem; margin-bottom: 4px; overflow-wrap: anywhere; }
+.step p { margin: 0; color: var(--muted); overflow-wrap: anywhere; }
 .step.is-here { outline: 2px solid var(--copper); }
 
 .course-pick-wrap { display: grid; gap: 14px; align-content: start; }
@@ -228,7 +236,7 @@ h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 8px; }
   font-weight: 700;
   color: var(--copper);
 }
-.course-card.is-selected .pick-state { color: var(--teal); }
+#select-ceh { width: 100%; margin-top: 16px; }
 .go-download {
   display: inline-flex;
   align-items: center;
@@ -286,6 +294,23 @@ body.ceh-selected #download-btn {
 }
 .fee-list, .plain-list { margin: 8px 0 0; padding-left: 18px; }
 .fee-list li, .plain-list li { margin: 4px 0; }
+.course-brief { margin-top: 8px; margin-bottom: 18px; }
+.course-brief h3 { margin-bottom: 8px; }
+.brochure-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--navy);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  max-width: 100%;
+  text-align: center;
+}
+.brochure-link:hover { background: var(--navy-2); color: white; }
 
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 18px; background: white; }
 table { width: 100%; border-collapse: collapse; min-width: 720px; }
@@ -333,8 +358,33 @@ textarea { min-height: 96px; resize: vertical; }
   border-radius: 12px;
   padding: 12px 14px;
 }
-.consent { display: flex; gap: 10px; align-items: flex-start; }
-.consent input { width: auto; margin-top: 5px; }
+.consent {
+  display: block;
+  position: relative;
+  padding: 4px 0 4px 36px;
+  cursor: pointer;
+}
+.consent input {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  margin: 0;
+  border: 2px solid var(--navy);
+  border-radius: 5px;
+  background: white center / 14px 14px no-repeat;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.consent input:checked {
+  background-color: var(--navy);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' d='M3 8.2 6.4 12 13 4'/%3E%3C/svg%3E");
+}
 .consent span { font-weight: 400; }
 input:focus, textarea:focus { outline: 2px solid var(--teal); border-color: transparent; }
 .intake-fields { display: grid; gap: 8px; }
@@ -370,12 +420,78 @@ button.course-card:hover {
 }
 button.course-card:hover { border-color: var(--copper); }
 button:disabled { opacity: 0.7; cursor: wait; }
+#download-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 52px;
+}
+#download-btn.is-loading,
+body.ceh-selected #download-btn.is-loading {
+  animation: none;
+  transform: none;
+  opacity: 1;
+  cursor: wait;
+}
+#download-btn.is-loading::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spin 0.7s linear infinite;
+}
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+.hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
 .form-msg { margin: 0; padding: 12px 14px; border-radius: 12px; }
 .form-msg.error { background: #fdecec; color: var(--danger); }
 .form-msg.ok { background: #e7f3f1; color: var(--ok); }
 
 .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .contact-grid a { color: inherit; text-decoration: none; font-weight: 600; }
+.whatsapp-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 10px 12px;
+  border-radius: 999px;
+  background: #075e54;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 12px 28px rgba(7, 94, 84, 0.28);
+}
+.whatsapp-float svg {
+  width: 22px;
+  height: 22px;
+  padding: 6px;
+  border-radius: 50%;
+  background: #25d366;
+  box-sizing: content-box;
+}
+.whatsapp-float:hover { background: #054c44; color: white; }
+@media (max-width: 640px) {
+  .whatsapp-float span { display: none; }
+  .whatsapp-float { right: 12px; bottom: 12px; padding: 10px; }
+  #letter, #apply, #about, #steps, #schedule, #contact { scroll-margin-top: 12px; }
+}
 .site-footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.92rem; }
 
 .flow-bar {
@@ -388,7 +504,7 @@ button:disabled { opacity: 0.7; cursor: wait; }
 .flow {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin: 0;
   padding: 12px 0;
@@ -439,23 +555,84 @@ button:disabled { opacity: 0.7; cursor: wait; }
 #application-fields[disabled] { opacity: 0.5; }
 
 @media (prefers-reduced-motion: reduce) {
-  .nav-course,
-  .nav-course .arrow-mark,
-  .aim svg,
-  .go-download,
-  .go-download svg,
-  body.ceh-selected #enrol-form,
-  body.ceh-selected #download-btn {
+  .nav-cta,
+  .nav-cta .arrow-mark {
     animation: none;
   }
 }
 @media (max-width: 860px) {
-  .nav a:not(.nav-cta):not(.nav-course) { display: none; }
-  .nav-course { padding-bottom: 8px; }
+  .site-header { position: static; padding-bottom: 0; }
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    gap: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .logo { height: 44px; }
+  .brand span { font-size: 0.78rem; }
+  .nav {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 6px;
+    padding-bottom: 0;
+    justify-content: stretch;
+  }
+  .nav a {
+    text-align: center;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 2px;
+    font-size: 0.74rem;
+  }
+  .nav-cta {
+    grid-column: 1 / -1;
+    order: -1;
+    box-shadow: none;
+    padding: 12px 10px;
+    font-size: 0.95rem;
+  }
+  .nav-cta .arrow-mark { display: none; }
   .hero-grid, .about-grid, .apply-grid, .course-layout, .steps, .contact-grid, .form-grid {
     grid-template-columns: 1fr;
   }
-  .flow { grid-template-columns: 1fr; }
-  .hero { padding-top: 36px; }
+  .hero { padding: 28px 0 8px; }
   .notice .wrap { flex-direction: column; }
+  h1 { font-size: clamp(2rem, 9vw, 2.6rem); }
+  h2 { font-size: 1.7rem; }
+  .brochure-link { display: flex; width: 100%; }
+  .panel, .hero-card, .step { padding: 16px; }
+  .form-title { font-size: 1.15rem; }
+  input[type="text"], input[type="email"], input[type="tel"], select, textarea { font-size: 16px; }
+  .contact-grid a, .offer-prompt p, .form-title, .lede { overflow-wrap: anywhere; }
+  table { min-width: 0; }
+  thead { display: none; }
+  #schedule-body tr {
+    display: grid;
+    gap: 2px;
+    padding: 12px 14px;
+  }
+  #schedule-body td {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    border: 0;
+    padding: 4px 0;
+    min-width: 0;
+  }
+  #schedule-body td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    flex: 0 0 auto;
+  }
+  body { padding-bottom: 84px; }
+  #letter, #apply, #about, #steps, #schedule, #contact { scroll-margin-top: 12px; }
 }

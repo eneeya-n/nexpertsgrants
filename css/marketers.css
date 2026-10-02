@@ -1,0 +1,91 @@
+.marketer-page { min-height: 100vh; }
+.marketer-shell { max-width: 920px; padding: 28px 0 64px; }
+.marketer-brand { display: flex; gap: 14px; align-items: center; margin-bottom: 22px; }
+.marketer-brand img { height: 54px; width: auto; }
+.marketer-brand h1, .dash-head h2 { font-family: var(--serif); font-size: 2rem; margin: 0; color: var(--navy); }
+.marketer-card { padding: 22px; }
+.marketer-card p { margin-top: 0; }
+#login-form, #signup-form { display: grid; gap: 14px; margin-top: 18px; }
+.marketer-card input[type="text"],
+.marketer-card input[type="email"] {
+  width: 100%;
+  font-size: 16px;
+}
+.switch-line { margin: 16px 0 0; }
+.share-box { margin: 8px 0 18px; }
+.share-row { display: flex; gap: 8px; align-items: center; }
+.share-row input { min-width: 0; }
+#copy-link {
+  flex: 0 0 auto;
+  width: auto;
+  background: var(--navy);
+  min-height: 48px;
+}
+#copy-link:hover { background: var(--navy-2); }
+.copy-note { color: var(--teal); font-weight: 600; margin: 8px 0 0; }
+.password-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #d9d0c3;
+  background: white;
+  border-radius: 12px;
+  padding: 0 4px 0 14px;
+}
+.password-box:focus-within {
+  outline: 2px solid var(--teal);
+  border-color: transparent;
+}
+.password-box input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  padding: 12px 0;
+  font: inherit;
+  font-size: 16px;
+  color: inherit;
+  box-shadow: none;
+}
+.password-box input:focus { outline: none; border-color: transparent; }
+.password-toggle {
+  flex: 0 0 auto;
+  background: transparent;
+  color: var(--teal);
+  border: 0;
+  min-height: 40px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.password-toggle:hover { background: transparent; color: var(--navy); }
+.dash-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+#logout-btn { background: white; color: var(--navy); border: 1px solid var(--line); width: auto; min-height: 44px; }
+.privacy-note {
+  background: #fff6e8;
+  border: 1px solid #e6c89a;
+  color: #6a4a1e;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.reg-table { width: 100%; border-collapse: collapse; }
+.reg-table th, .reg-table td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.reg-table th { font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.reg-empty { color: var(--muted); }
+@media (max-width: 860px) {
+  .marketer-shell { padding-top: 18px; }
+  .marketer-brand img { height: 44px; }
+  .marketer-brand h1, .dash-head h2 { font-size: 1.6rem; }
+  .dash-head { flex-direction: column; }
+  #logout-btn, #login-btn, #signup-btn { width: 100%; }
+  .share-row { flex-direction: column; align-items: stretch; }
+  #copy-link { width: 100%; }
+  .reg-table thead { display: none; }
+  .reg-table, .reg-table tbody, .reg-table tr, .reg-table td { display: block; width: 100%; }
+  .reg-table tr { border: 1px solid var(--line); border-radius: 14px; margin: 0 0 12px; padding: 8px 12px; background: white; }
+  .reg-table td { display: flex; justify-content: space-between; gap: 12px; border: 0; padding: 6px 0; }
+  .reg-table td::before { content: attr(data-label); color: var(--muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+}

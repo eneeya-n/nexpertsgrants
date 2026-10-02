@@ -1,9 +1,9 @@
 (function () {
   var INTAKES = [
-    { id: "nov-weekday", label: "23.11.2026 - 27.11.2026 (week day)", pdfDate: "23.11.2026 - 27.11.2026 (week day)" },
-    { id: "nov-weekend", label: "28.11.2026 - 12.12.2026 (week end)", pdfDate: "28.11.2026 - 12.12.2026 (week end)" },
-    { id: "dec-weekday", label: "07.12.2026 - 11.12.2026 (week day)", pdfDate: "07.12.2026 - 11.12.2026 (week day)" },
-    { id: "dec-weekend", label: "05.12.2026 - 19.12.2026 (week end)", pdfDate: "05.12.2026 - 19.12.2026 (week end)" },
+    { id: "nov-weekday", label: "23.11.2026 - 27.11.2026 (weekday)", pdfDate: "23.11.2026 - 27.11.2026 (weekday)" },
+    { id: "nov-weekend", label: "28.11.2026 - 12.12.2026 (weekend)", pdfDate: "28.11.2026 - 12.12.2026 (weekend)" },
+    { id: "dec-weekday", label: "07.12.2026 - 11.12.2026 (weekday)", pdfDate: "07.12.2026 - 11.12.2026 (weekday)" },
+    { id: "dec-weekend", label: "05.12.2026 - 19.12.2026 (weekend)", pdfDate: "05.12.2026 - 19.12.2026 (weekend)" },
   ];
 
   var scheduleBody = document.getElementById("schedule-body");
@@ -12,34 +12,9 @@
   var errorBox = document.getElementById("form-error");
   var successBox = document.getElementById("form-success");
   var submitBtn = document.getElementById("download-btn");
-  var selectCehBtn = document.getElementById("select-ceh");
-  var aimCeh = document.getElementById("aim-ceh");
   var applyPanel = document.getElementById("apply");
 
-  function setFlow(step) {
-    Array.prototype.forEach.call(document.querySelectorAll("#flow li"), function (li, index) {
-      var n = index + 1;
-      li.classList.toggle("is-done", n < step);
-      li.classList.toggle("is-current", n === step);
-      var kicker = li.querySelector(".flow-kicker");
-      if (n < step) kicker.textContent = "Done";
-      else if (n === step) kicker.textContent = "You are here";
-      else kicker.textContent = "Next";
-    });
-  }
-
-  function selectCeh() {
-    document.body.classList.add("ceh-selected");
-    selectCehBtn.classList.add("is-selected");
-    selectCehBtn.setAttribute("aria-pressed", "true");
-    selectCehBtn.querySelector(".pick-state").textContent = "Application open";
-    aimCeh.hidden = true;
-    applyPanel.hidden = false;
-    if (!document.body.classList.contains("letter-ready")) setFlow(2);
-  }
-
   function openApplication() {
-    selectCeh();
     applyPanel.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -51,10 +26,10 @@
     scheduleBody.innerHTML = INTAKES.map(function (item) {
       return (
         "<tr data-intake=\"" + item.id + "\" tabindex=\"0\">" +
-          "<td>CEH</td>" +
-          "<td>EC-Council Certified Ethical Hacker</td>" +
-          "<td>" + item.label + "</td>" +
-          "<td>9.00AM – 5.00PM</td>" +
+          "<td data-label=\"Course\">CEH</td>" +
+          "<td data-label=\"Programme\">EC-Council Certified Ethical Hacker</td>" +
+          "<td data-label=\"Intake\">" + item.label + "</td>" +
+          "<td data-label=\"Time\">9.00AM – 5.00PM</td>" +
         "</tr>"
       );
     }).join("");
@@ -82,7 +57,6 @@
   renderSchedule();
   renderIntakes();
 
-  selectCehBtn.addEventListener("click", openApplication);
   Array.prototype.forEach.call(document.querySelectorAll('a[href="#apply"]'), function (link) {
     link.addEventListener("click", function (event) {
       event.preventDefault();
@@ -176,26 +150,83 @@
       return;
     }
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Preparing your letter…";
+    setBusy(true);
 
-    window.NexpertsLetter.generateOfferLetter({
+    window.NexpertsLetter.buildOfferLetter({
       name: name,
       nric: nric,
       address: address,
       trainingDate: intake.pdfDate,
+    }).then(function (filled) {
+      return fetch(new URL("api/apply", window.location.href), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          companyFax: document.getElementById("company-fax").value,
+          name: name,
+          nric: nric,
+          email: email,
+          phone: phone,
+          workStatus: workStatus,
+          street: street,
+          street2: street2,
+          city: city,
+          region: region,
+          postal: postal,
+          country: country,
+          address: address,
+          trainingDate: intake.label,
+          letterDate: filled.letterDate,
+          filename: filled.filename,
+          pdfBase64: bytesToBase64(filled.bytes),
+          ref: referralCode(),
+        }),
+      }).then(function (response) {
+        return response.json().catch(function () { return {}; }).then(function (payload) {
+          if (!response.ok || !payload.ok) {
+            throw new Error(payload.error || "The letter could not be emailed.");
+          }
+          window.NexpertsLetter.downloadOfferLetter(filled);
+          form.reset();
+          selectIntake("");
+          successBox.hidden = false;
+          document.getElementById("success-email").textContent = email;
+          document.getElementById("success-intake").textContent = intake.label;
+          successBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+      });
+    }).catch(function (error) {
+      showError(publicError(error));
     }).then(function () {
-      document.body.classList.add("letter-ready");
-      setFlow(3);
-      successBox.hidden = false;
-      document.getElementById("success-intake").textContent = intake.label;
-      submitBtn.textContent = "Download offer letter";
-      successBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }).catch(function () {
-      showError("The letter could not be created. Check your details and try again.");
-      submitBtn.textContent = "Submit Application!";
-    }).then(function () {
-      submitBtn.disabled = false;
+      setBusy(false);
     });
   });
+
+  function setBusy(busy) {
+    submitBtn.disabled = busy;
+    submitBtn.classList.toggle("is-loading", busy);
+    submitBtn.setAttribute("aria-busy", busy ? "true" : "false");
+    submitBtn.querySelector(".btn-label").textContent = busy ? "Sending your letter…" : "Submit Application!";
+  }
+
+  function referralCode() {
+    return new URLSearchParams(window.location.search).get("ref") || "";
+  }
+
+  function publicError(error) {
+    var message = error && error.message ? String(error.message) : "";
+    if (!message || message === "Failed to fetch" || message.length > 180 || /[\r\n]/.test(message)) {
+      return "The letter could not be emailed. Check your details and try again.";
+    }
+    return message;
+  }
+
+  function bytesToBase64(bytes) {
+    var binary = "";
+    var chunk = 0x8000;
+    for (var i = 0; i < bytes.length; i += chunk) {
+      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+    }
+    return btoa(binary);
+  }
 })();
