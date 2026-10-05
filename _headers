@@ -21,3 +21,9 @@
   X-Content-Type-Options: nosniff
   X-Robots-Tag: noindex, nofollow
   Referrer-Policy: no-referrer
+
+/api/recover/*
+  Cache-Control: no-store
+  X-Content-Type-Options: nosniff
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: no-referrer

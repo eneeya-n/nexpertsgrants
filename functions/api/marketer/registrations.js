@@ -17,7 +17,10 @@ export async function onRequest(context) {
     if (!result || result.ok !== true || !Array.isArray(result.rows)) {
       return dashboard(session, [], "The registration list is not available right now.");
     }
-    return dashboard(session, result.rows.slice(0, 300).map(publicRow), "");
+    var rows = result.rows.filter(function (row) {
+      return String(row && row.emailStatus || "").trim().toLowerCase() !== "failed";
+    }).slice(0, 300).map(publicRow);
+    return dashboard(session, rows, "");
   } catch (error) {
     return dashboard(session, [], "The registration list is not available right now.");
   }
@@ -34,16 +37,15 @@ function dashboard(session, rows, listError) {
 }
 
 function publicRow(row) {
-  var ending = String(row && row.nricLast4 || "").replace(/\D/g, "").slice(-4);
   return {
     submittedAt: clip(row && row.submittedAt, 40),
     name: clip(row && row.name, 120),
-    email: clip(row && row.email, 160),
-    phone: clip(row && row.phone, 24),
-    training: clip(row && row.training, 80),
-    workStatus: clip(row && row.workStatus, 40),
+    serialNo: clip(row && row.serialNo, 40),
+    applicationStatus: clip(row && row.applicationStatus, 80),
+    paymentStatus: clip(row && row.paymentStatus, 80),
+    commissionStatus: clip(row && row.commissionStatus, 80),
+    // Kept for the failed-row filter above; not shown on the dashboard.
     emailStatus: clip(row && row.emailStatus, 20),
-    icEnding: ending,
   };
 }
 

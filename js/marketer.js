@@ -131,6 +131,7 @@
       shareLink.value = result.body.link || "";
       var rows = result.body.rows || [];
       var count = rows.length;
+      document.getElementById("dash-total").textContent = String(count);
       document.getElementById("dash-count").textContent = count === 1 ? "1 person registered with your link." : count + " people registered with your link.";
       show(dashError, result.body.listError || "");
       renderRows(rows);
@@ -154,7 +155,7 @@
     table.className = "reg-table";
     var head = document.createElement("thead");
     var headRow = document.createElement("tr");
-    ["Submitted", "Name", "Email", "Phone", "Schedule", "IC ending"].forEach(function (label) {
+    ["Name", "Date", "Serial No", "Application Status", "Payment Status", "Commission Status"].forEach(function (label) {
       var cell = document.createElement("th");
       cell.textContent = label;
       headRow.appendChild(cell);
@@ -162,15 +163,16 @@
     head.appendChild(headRow);
     table.appendChild(head);
     var body = document.createElement("tbody");
-    rows.forEach(function (row) {
+    rows.forEach(function (row, index) {
       var tr = document.createElement("tr");
+      var serial = String(row.serialNo || "").trim() || String(rows.length - index);
       [
-        ["Submitted", row.submittedAt],
         ["Name", row.name],
-        ["Email", row.email],
-        ["Phone", row.phone],
-        ["Schedule", row.training],
-        ["IC ending", row.icEnding ? "••••" + row.icEnding : ""],
+        ["Date", row.submittedAt],
+        ["Serial No", serial],
+        ["Application Status", row.applicationStatus],
+        ["Payment Status", row.paymentStatus],
+        ["Commission Status", row.commissionStatus],
       ].forEach(function (pair) {
         var td = document.createElement("td");
         td.setAttribute("data-label", pair[0]);

@@ -229,9 +229,14 @@
   }
 
   async function buildOfferLetter(data) {
-    const response = await fetch("assets/letter-template.pdf");
+    const response = await fetch(new URL("assets/letter-template.pdf", window.location.href));
     if (!response.ok) throw new Error("Template missing");
     const templateBytes = await response.arrayBuffer();
+    const header = new Uint8Array(templateBytes.slice(0, 5));
+    const isPdf = header[0] === 0x25 && header[1] === 0x50 && header[2] === 0x44 && header[3] === 0x46;
+    if (!isPdf || templateBytes.byteLength < 1000) {
+      throw new Error("The letter template could not be loaded. Please refresh and try again.");
+    }
     const pdfLib = globalThis.PDFLib;
     if (!pdfLib) throw new Error("PDF library did not load");
     return fillTemplate(pdfLib, templateBytes, data);

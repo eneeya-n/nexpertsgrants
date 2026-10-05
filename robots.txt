@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /marketers
 Disallow: /api/marketer
+Disallow: /api/recover

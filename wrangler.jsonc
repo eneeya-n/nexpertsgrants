@@ -2,6 +2,10 @@
   "name": "nexperts-grants",
   "pages_build_output_dir": ".",
   "compatibility_date": "2026-10-01",
+  // Workers Paid: give apply/mail enough CPU for large PDF JSON + Apps Script + Brevo.
+  "limits": {
+    "cpu_ms": 60000
+  },
   "kv_namespaces": [
     {
       "binding": "LOGIN_LIMITS",
